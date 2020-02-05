@@ -1,0 +1,7 @@
+ssl/*
+var/squid/cache
+var/squid/cert
+var/squid/log
+var/squid/cache
+var/squid/reports/*
+!.gitkeep

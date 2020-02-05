@@ -1,0 +1,28 @@
+version: "3"
+services:
+  nginx:
+    container_name: iris.nginx
+    restart: always
+    image: nginx:latest
+    network_mode: host
+    ports:
+      - 443:443
+      - 80:80
+    volumes:
+    - ./etc/nginx:/etc/nginx/conf.d
+    - ./ssl:/etc/nginx/ssl
+  squid:
+    container_name: iris.squid
+    restart: always
+    build:
+      context: ./etc/squid
+    network_mode: host
+    ports:
+      - 3128:3128
+    volumes: 
+      - ./etc/squid/sarg.conf:/usr/local/etc/sarg.conf
+      - ./var/squid/cert:/etc/squid-cert
+      - ./etc/squid/squid.conf:/etc/squid/squid.conf
+      - ./var/squid/cache:/var/cache/squid
+      - ./var/squid/log:/var/log/squid:rw
+      - ./var/squid/reports:/squid-reports
